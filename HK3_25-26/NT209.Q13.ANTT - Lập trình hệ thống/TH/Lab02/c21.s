@@ -21,5 +21,6 @@ _start:
 	int  $0x80
 
 	movl $1, 	%eax
+	xorl %ebx, 	%ebx
 	int  $0x80
 
