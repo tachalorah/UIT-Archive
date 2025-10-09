@@ -11,8 +11,8 @@ strlen = . -str
 _start:
 	movl $47, 	%eax
 	addl $strlen, 	%eax
-	movl %eax, 	len
-	movl $10, 	len + 1
+	movb %al, 	len
+	movb $10, 	len + 1
 
 	movl $4, 	%eax
 	movl $1, 	%ebx

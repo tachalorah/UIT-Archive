@@ -22,16 +22,16 @@ _start:
 	movl $3, 	%edx
 	int  $0x80
 
-	movb num, 	%al
-	subb $48, 	%al
+	movzbl num, 	%eax
+	subl $48, 	%eax
 	imull $10, 	%eax
-	movb num + 1, 	%bl
-	subb $48, 	%bl
-	addb %bl, 	%al
+	movzbl num + 1, %ebx
+	subl $48, 	%ebx
+	addl %ebx, 	%eax
 
-	andb $1, 	%bl
-	xorb $1, 	%bl
-	addb $48, 	%bl
+	andl $1, 	%ebx
+	xorl $1, 	%ebx
+	addl $48, 	%ebx
 	movb %bl, 	is_even
 	movb $10, 	is_even + 1
 
@@ -42,7 +42,17 @@ _start:
 	addl $1, 	%eax
 	cmpl $100, 	%eax
 	je   three_digits
-	jmp  two_digits
+
+	movl $10, 	%ecx
+	xorl %edx, 	%edx
+	divl %ecx
+
+	addl $48, 	%eax
+	addl $48, 	%edx
+	movb %al, 	pr_num + 3
+	movb %dl, 	pr_num + 4
+	movb $0, 	pr_num + 5
+	movb $10, 	pr_num + 6
 
 print_output:
 	movl $4, 	%eax
@@ -65,19 +75,6 @@ three_digits:
 	movb $49, 	pr_num + 3
 	movb $48, 	pr_num + 4
 	movb $48, 	pr_num + 5
-	movb $10, 	pr_num + 6
-
-	jmp  print_output
-
-two_digits:
-	movb $10, 	%cl
-	divb %cl
-
-	addb $48, 	%al
-	addb $48, 	%ah
-	movb %al, 	pr_num + 3
-	movb %ah, 	pr_num + 4
-	movb $0, 	pr_num + 5
 	movb $10, 	pr_num + 6
 
 	jmp  print_output

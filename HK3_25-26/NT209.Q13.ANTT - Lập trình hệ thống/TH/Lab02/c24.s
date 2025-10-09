@@ -1,6 +1,6 @@
 .section .bss
 	.lcomm input, 6
-	.lcomm output, 5
+	.lcomm output, 6
 
 .section .data
 str: 	.string "Enter a string: "
@@ -22,6 +22,7 @@ _start:
 	movl $6, 	%edx
 	int  $0x80
 
+	movb $10, 	output + 5
 	movb input, 	%al
 	movb %al, 	output + 4
 	movb input + 1, %al
@@ -36,14 +37,9 @@ _start:
 	movl $4, 	%eax
 	movl $1, 	%ebx
 	movl $output, 	%ecx
-	movl $5, 	%edx
+	movl $6, 	%edx
 	int  $0x80
 
-	movl $4,	%eax
-	movl $1, 	%ebx
-	movl $nl, 	%ecx
-	movl $1, 	%edx
-	int  $0x80
-
-	movl $1, %eax
+	movl $1, 	%eax
+	xorl %ebx, 	%ebx
 	int  $0x80
