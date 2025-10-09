@@ -3,7 +3,7 @@
 
 .section .data
 str:	.string "NT209UIT"
-strlen = . - str
+strlen = . -str
 
 .section .text
 	.globl _start
@@ -16,10 +16,10 @@ _start:
 
 	movl $4, 	%eax
 	movl $1, 	%ebx
-	movl $strlen, 	%ecx
+	movl $len, 	%ecx
 	movl $2, 	%edx
 	int  $0x80
 
 	movl $1, 	%eax
-	xorl %ebx, 	%ebx
 	int  $0x80
+
