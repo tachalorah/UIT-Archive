@@ -3,8 +3,7 @@
 	.lcomm output, 6
 
 .section .data
-str: 	.string "Enter a string: "
-nl: 	.string "\n"
+prompt: .string "Enter a string: "
 
 .section .text
 	.globl _start
@@ -12,7 +11,7 @@ nl: 	.string "\n"
 _start:
 	movl $4, 	%eax
 	movl $1, 	%ebx
-	movl $str, 	%ecx
+	movl $prompt, 	%ecx
 	movl $17, 	%edx
 	int  $0x80
 

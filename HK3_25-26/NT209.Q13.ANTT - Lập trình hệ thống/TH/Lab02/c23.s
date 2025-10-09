@@ -13,7 +13,7 @@ _start:
 	movl $4, 	%eax
 	movl $1, 	%ebx
 	movl $prompt, 	%ecx
-	movl $33,	%edx
+	movl $25,	%edx
 	int  $0x80
 
 	movl $3, 	%eax
