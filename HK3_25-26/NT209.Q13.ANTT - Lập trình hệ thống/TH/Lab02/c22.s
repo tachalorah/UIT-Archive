@@ -32,7 +32,7 @@ _start:
 	movl %eax, 	d_out
 	movl d_in, 	%eax
 	movl %eax, 	d_out + 4
-	movl $10, 	(d_out + 8)
+	movl $10, 	d_out + 8
 
 	movl $4, 	%eax
 	movl $1, 	%ebx
