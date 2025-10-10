@@ -3,8 +3,8 @@
 	.lcomm d_out, 9
 
 .section .data
-prompt:  .string "Date (DDMMYYYY): "
-prompt2: .string "Date (YYYYDDMM): "
+in_msg:  .string "Date (DDMMYYYY): "
+out_msg: .string "Date (YYYYDDMM): "
 
 .section .text
 	.globl _start
@@ -12,7 +12,7 @@ prompt2: .string "Date (YYYYDDMM): "
 _start:
 	movl $4, 	%eax
 	movl $1, 	%ebx
-	movl $prompt, 	%ecx
+	movl $in_msg, 	%ecx
 	movl $18, 	%edx
 	int  $0x80
 
@@ -24,7 +24,7 @@ _start:
 
 	movl $4, 	%eax
 	movl $1, 	%ebx
-	movl $prompt2, 	%ecx
+	movl $out_msg, 	%ecx
 	movl $18, 	%edx
 	int  $0x80
 
@@ -42,4 +42,4 @@ _start:
 
 	movl $1, 	%eax
 	xorl %ebx, 	%ebx
-	int  $0x80
+	int $0x80

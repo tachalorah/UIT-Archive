@@ -1,5 +1,5 @@
 .section .bss
-	.lcomm len, 2
+	.lcomm len_out, 2
 
 .section .data
 str:	.string "NT209UIT"
@@ -11,12 +11,12 @@ strlen = . -str
 _start:
 	movl $47, 	%eax
 	addl $strlen, 	%eax
-	movb %al, 	len
-	movb $10, 	len + 1
+	movb %al, 	len_out
+	movb $10, 	len_out + 1
 
 	movl $4, 	%eax
 	movl $1, 	%ebx
-	movl $len, 	%ecx
+	movl $len_out, 	%ecx
 	movl $2, 	%edx
 	int  $0x80
 
