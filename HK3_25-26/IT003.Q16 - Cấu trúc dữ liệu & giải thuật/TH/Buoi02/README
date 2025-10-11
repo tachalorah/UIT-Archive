@@ -1,4 +1,6 @@
-Nhân tiện t cũng nhắc tới một số vấn đề có thể b sẽ (không) quan tâm:
+Bên trong mỗi tệp có tên bài, yêu cầu, và cũng có thể là một số thứ khác.
+
+Nhân tiện t cũng nhắc tới một vấn đề có thể b sẽ (không) quan tâm:
 
    Một số hàm trong các tệp có thể được rút gọn bằng rất nhiều cách khác nhau.
    Ví dụ như hàm Less() ở bài đầu tiên:
