@@ -1,9 +1,9 @@
 .section .bss
-	.lcomm input, 6
-	.lcomm output, 6
+	.lcomm s_in, 6
+	.lcomm s_out, 6
 
 .section .data
-prompt: .string "Enter a string: "
+in_msg: .string "Enter a string: "
 
 .section .text
 	.globl _start
@@ -11,31 +11,31 @@ prompt: .string "Enter a string: "
 _start:
 	movl $4, 	%eax
 	movl $1, 	%ebx
-	movl $prompt, 	%ecx
+	movl $in_msg, 	%ecx
 	movl $17, 	%edx
 	int  $0x80
 
 	movl $3, 	%eax
 	movl $0, 	%ebx
-	movl $input, 	%ecx
+	movl $s_in, 	%ecx
 	movl $6, 	%edx
 	int  $0x80
 
-	movb $10, 	output + 5
-	movb input, 	%al
-	movb %al, 	output + 4
-	movb input + 1, %al
-	movb %al, 	output + 3
-	movb input + 2, %al
-	movb %al, 	output + 2
-	movb input + 3, %al
-	movb %al, 	output + 1
-	movb input + 4, %al
-	movb %al, 	output
+	movb $10, 	s_out + 5
+	movb s_in, 	%al
+	movb %al, 	s_out + 4
+	movb s_in + 1, 	%al
+	movb %al, 	s_out + 3
+	movb s_in + 2, 	%al
+	movb %al, 	s_out + 2
+	movb s_in + 3, 	%al
+	movb %al, 	s_out + 1
+	movb s_in + 4, 	%al
+	movb %al, 	s_out
 
 	movl $4, 	%eax
 	movl $1, 	%ebx
-	movl $output, 	%ecx
+	movl $s_out, 	%ecx
 	movl $6, 	%edx
 	int  $0x80
 
