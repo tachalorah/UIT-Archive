@@ -1,0 +1,42 @@
+Nhân tiện t cũng nhắc tới một số vấn đề có thể b sẽ (không) quan tâm:
+
+   Một số hàm trong các tệp có thể được rút gọn bằng rất nhiều cách khác nhau.
+   Ví dụ như hàm Less() ở bài đầu tiên:
+   ```
+   	return (A.XPos < B.XPos) || (A.XPos == B.XPos && A.YPos > B.YPos)
+   ```
+   thay vì:
+   ```
+   	if (A.XPos < B.XPos)
+   		return true;
+   	if (A.XPos == B.XPos && A.YPos > B.YPos)
+   		return true;
+   	return false;
+   ```
+   T chọn cách dưới vì nó đơn giản và dễ đọc hơn cách trên *rất nhiều*. Và,
+   do t đã nhồi trước cái tối ưu O3 nên dù cách trên hay dưới thì lệnh asm
+   xuất ra cũng sẽ giống nhau:
+   ```
+   	0000000000000000 <_Z4LessRK5PointS1_>:
+   	       0: 8b 07                        	movl	(%rdi), %eax
+   	       2: 3b 06                        	cmpl	(%rsi), %eax
+   	       4: 0f 9c c1                     	setl	%cl
+   	       7: 8b 46 04                     	movl	0x4(%rsi), %eax
+   	       a: 39 47 04                     	cmpl	%eax, 0x4(%rdi)
+   	       d: 0f 9f c0                     	setg	%al
+   	      10: 20 c8                        	andb	%cl, %al
+   	      12: c3                           	retq
+
+   	0000000000000020 <_Z5Less2RK5PointS1_>:
+   	      20: 8b 07                        	movl	(%rdi), %eax
+   	      22: 3b 06                        	cmpl	(%rsi), %eax
+   	      24: 0f 9c c1                     	setl	%cl
+   	      27: 8b 46 04                     	movl	0x4(%rsi), %eax
+   	      2a: 39 47 04                     	cmpl	%eax, 0x4(%rdi)
+   	      2d: 0f 9f c0                     	setg	%al
+   	      30: 20 c8                        	andb	%cl, %al
+   	      32: c3                           	retq
+   ```
+   Đó, cỏ lúa bằng nhau cả.
+   T không bao giờ khôn hơn LLVM/Clang hay GCC được, nên t viết những thứ đơn
+   giản để chúng xuất được mớ lệnh chạy nhanh nhất. Và t mong b cũng thế.
