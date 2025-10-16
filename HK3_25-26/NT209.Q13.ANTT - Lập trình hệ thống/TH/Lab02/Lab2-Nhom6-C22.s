@@ -1,6 +1,5 @@
 .section .bss
-	.lcomm d_in,  9
-	.lcomm d_out, 9
+	.lcomm date, 9
 
 .section .data
 in_msg:  .string "Date (DDMMYYYY): "
@@ -18,7 +17,7 @@ _start:
 
 	movl $3, 	%eax
 	movl $0, 	%ebx
-	movl $d_in, 	%ecx
+	movl $date, 	%ecx
 	movl $9, 	%edx
 	int  $0x80
 
@@ -28,17 +27,14 @@ _start:
 	movl $18, 	%edx
 	int  $0x80
 
-	movb $10, 	d_out + 8
-	movl d_in + 4, 	%eax
-	movl %eax, 	d_out + 4
-	movw d_in, 	%ax
-	movw %ax, 	d_out + 2
-	movw d_in + 2, 	%ax
-	movw %ax, 	d_out
+	movw date, 	%ax
+	movw date + 2, 	%bx
+	movw %ax, 	date + 2
+	movw %bx, 	date
 
 	movl $4, 	%eax
 	movl $1, 	%ebx
-	movl $d_out, 	%ecx
+	movl $date, 	%ecx
 	movl $9, 	%edx
 	int  $0x80
 
