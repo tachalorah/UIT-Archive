@@ -11,9 +11,15 @@ _start:
 	movl $4, %edx
 	int $0x80
 
-	subb $32, str
-	subb $32, str + 1
-	subb $32, str + 2
+	movb str, %al
+	subb $32, %al
+	movb %al, str
+	movb str + 1, %al
+	subb $32, %al
+	movb %al, str + 1
+	movb str + 2, %al
+	subb $32, %al
+	movb %al, str + 2
 
 	movl $4, %eax
 	movl $1, %ebx
