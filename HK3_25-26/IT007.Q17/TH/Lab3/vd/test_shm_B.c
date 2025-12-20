@@ -6,16 +6,17 @@
 # File: test_shm_A.c
 ######################################*/
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <fcntl.h>
+#include <sys/mman.h>
 #include <sys/shm.h>
 #include <sys/stat.h>
-#include <unistd.h>
-#include <sys/mman.h>
 
-int main()
+#include <fcntl.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+
+int
+main()
 {
 	/* the size (in bytes) of shared memory object */
 	const int SIZE = 4096;
@@ -26,12 +27,12 @@ int main()
 	/* pointer to shared memory object */
 	char *ptr;
 	/* create the shared memory object */
-	fd = shm_open(name, O_RDWR,0666);
+	fd = shm_open(name, O_RDWR, 0666);
 	/* memory map the shared memory object */
 	ptr = mmap(0, SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 	/* read from the shared memory object */
 	printf("Read shared memory: ");
-	printf("%s\n",(char *)ptr);
+	printf("%s\n", (char *)ptr);
 	/* update the shared memory object */
 	strcpy(ptr, "Hello Process A");
 	printf("Shared memory updated: %s\n", ptr);

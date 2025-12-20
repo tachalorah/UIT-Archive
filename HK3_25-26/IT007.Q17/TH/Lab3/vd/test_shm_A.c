@@ -6,16 +6,17 @@
 # File: test_shm_A.c
 ######################################*/
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <fcntl.h>
+#include <sys/mman.h>
 #include <sys/shm.h>
 #include <sys/stat.h>
-#include <unistd.h>
-#include <sys/mman.h>
 
-int main()
+#include <fcntl.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+
+int
+main()
 {
 	/* the size (in bytes) of shared memory object */
 	const int SIZE = 4096;
@@ -26,7 +27,7 @@ int main()
 	/* pointer to shared memory object */
 	char *ptr;
 	/* create the shared memory object */
-	fd = shm_open(name, O_CREAT | O_RDWR,0666);
+	fd = shm_open(name, O_CREAT | O_RDWR, 0666);
 	/* configure the size of the shared memory object */
 	ftruncate(fd, SIZE);
 	/* memory map the shared memory object */
@@ -34,8 +35,7 @@ int main()
 	/* write to the shared memory object */
 	strcpy(ptr, "Hello Process B");
 	/* wait until Process B updates the shared memory segment */
-	while (strncmp(ptr, "Hello Process B", 15) == 0)
-	{
+	while (strncmp(ptr, "Hello Process B", 15) == 0) {
 		printf("Waiting Process B update shared memory\n");
 		sleep(1);
 	}
