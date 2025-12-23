@@ -1,4 +1,5 @@
 #include <sys/wait.h>
+
 #include <err.h>
 #include <signal.h>
 #include <stdio.h>
@@ -13,14 +14,14 @@ main(void)
 	printf("Welcome to IT007, I am 24520346!\n");
 
 	switch (fork()) {
-		case -1:
-			err(1, "fork");
-		case 0:
-			execl("./count.sh", "./count.sh", "120", NULL);
-			err(2, "execl");
-		default:
-			signal(SIGINT, handle);
-			wait(NULL);
+	case -1:
+		err(1, "fork");
+	case 0:
+		execl("./count.sh", "./count.sh", "120", NULL);
+		err(2, "execl");
+	default:
+		signal(SIGINT, handle);
+		wait(NULL);
 	}
 
 	exit(0);
